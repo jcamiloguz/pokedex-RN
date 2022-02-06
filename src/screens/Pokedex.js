@@ -1,8 +1,9 @@
+import { FlatList, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getAllPokemons, getPokemonDetails } from '../api/pokemon'
 
+import { PokemonList } from '../components/PokemonList'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Text } from 'react-native'
 
 export function Pokedex() {
   const [pokemons, setPokemons] = useState([])
@@ -27,7 +28,7 @@ export function Pokedex() {
           img: pokemonDetails.sprites.other['official-artwork'].front_default,
         })
       }
-      setPokemons([...pokemons, pokemonArray])
+      setPokemons([...pokemons, ...pokemonArray])
       console.log(pokemons)
     } catch (error) {
       console.log(error)
@@ -36,7 +37,15 @@ export function Pokedex() {
 
   return (
     <SafeAreaView>
-      <Text>Pokedexs</Text>
+      <PokemonList>
+        <FlatList
+          data={pokemons}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(pokemon) => String(pokemon.id)}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+        />
+      </PokemonList>
     </SafeAreaView>
   )
 }
