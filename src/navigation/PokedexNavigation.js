@@ -7,14 +7,14 @@ export function PokedexNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Pokemon"
-        component={Pokemon}
-        options={{ title: 'Pokemon' }}
-      />
-      <Stack.Screen
         name="PokedexHome"
         component={Pokedex}
         options={{ title: 'Pokedex' }}
+      />
+      <Stack.Screen
+        name="Pokemon"
+        component={Pokemon}
+        options={{ title: 'Pokemon' }}
       />
     </Stack.Navigator>
   )
