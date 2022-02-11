@@ -1,9 +1,9 @@
-import { FlatList, Text } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getAllPokemons, getPokemonDetails } from '../api/pokemon'
 
+import { PokemonCard } from '../components/PokemonCard'
 import { PokemonList } from '../components/PokemonList'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 export function Pokedex() {
   const [pokemons, setPokemons] = useState([])
@@ -36,16 +36,22 @@ export function Pokedex() {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <PokemonList>
         <FlatList
           data={pokemons}
           numColumns={2}
           showsVerticalScrollIndicator={false}
           keyExtractor={(pokemon) => String(pokemon.id)}
-          renderItem={({ item }) => <Text>{item.name}</Text>}
+          renderItem={({ item }) => <PokemonCard pokemon={item} />}
+          contentContainerStyle={styles.flatListContainer}
         />
       </PokemonList>
-    </SafeAreaView>
+    </View>
   )
 }
+const styles = StyleSheet.create({
+  flatListContainer: {
+    paddingHorizontal: 10,
+  },
+})
