@@ -44,15 +44,11 @@ export const Navigation = () => {
   )
 }
 
-const renderIcon = (focused) => {
+const renderIcon = () => {
   return (
     <Image
       source={require('../assets/pokeball.png')}
-      style={
-        focused
-          ? { width: 75, height: 75, top: -15 }
-          : { width: 75, height: 75, top: -10 }
-      }
+      style={{ width: 75, height: 75, top: -15 }}
     />
   )
 }

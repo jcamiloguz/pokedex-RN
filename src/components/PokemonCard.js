@@ -7,16 +7,23 @@ import {
 } from 'react-native'
 
 import React from 'react'
+import { getColorByPokemonType } from '../utils/getColorByPokemonType'
 
 export function PokemonCard({ pokemon }) {
+  const bgStyles = {
+    backgroundColor: getColorByPokemonType(pokemon.type),
+    ...style.bgStyles,
+  }
+
   const goToPokemon = () => {
     console.log(pokemon)
   }
+
   return (
     <TouchableWithoutFeedback onPress={goToPokemon}>
       <View style={style.card}>
         <View style={style.spacing}>
-          <View style={style.bg}>
+          <View style={bgStyles}>
             <Text style={style.number}>#{`${pokemon.order}`}</Text>
             <Text style={style.name}>{pokemon.name}</Text>
             <Image source={{ uri: pokemon.img }} style={style.img} />
@@ -45,11 +52,17 @@ const style = StyleSheet.create({
     width: 90,
     height: 90,
   },
+  bgStyles: {
+    flex: 1,
+    borderRadius: 15,
+    padding: 10,
+  },
   name: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
     paddingTop: 15,
+    textTransform: 'capitalize',
   },
   number: {
     position: 'absolute',
