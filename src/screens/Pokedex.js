@@ -3,9 +3,10 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
+  Platform,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getAllPokemons, getPokemonDetails } from '../api/pokemon'
+import { getAllPokemons, getPokemonDetailsByUrl } from '../api/pokemon'
 
 import { PokemonCard } from '../components/PokemonCard'
 import { PokemonList } from '../components/PokemonList'
@@ -26,7 +27,7 @@ export function Pokedex() {
       setNextUrl(response.next)
       const pokemonArray = []
       for await (const pokemon of response.results) {
-        const pokemonDetails = await getPokemonDetails(pokemon.url)
+        const pokemonDetails = await getPokemonDetailsByUrl(pokemon.url)
         pokemonArray.push({
           id: pokemonDetails.id,
           name: pokemonDetails.name,
@@ -72,10 +73,11 @@ export function Pokedex() {
 }
 const styles = StyleSheet.create({
   flatListContainer: {
-    paddingHorizontal: 10,
+    paddingTop: Platform.OS === 'android' ? 30 : 0,
+    paddingHorizontal: 0,
   },
   spinner: {
     marginTop: 20,
-    marginBottom: 60,
+    marginBottom: Platform.OS === 'android' ? 90 : 60,
   },
 })

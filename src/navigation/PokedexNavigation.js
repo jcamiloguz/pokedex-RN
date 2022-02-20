@@ -14,7 +14,11 @@ export function PokedexNavigation() {
       <Stack.Screen
         name="Pokemon"
         component={Pokemon}
-        options={{ title: 'Pokemon' }}
+        options={{
+          title: '',
+          headerTransparent: true,
+          headerTintColor: '#f8f8f8',
+        }}
       />
     </Stack.Navigator>
   )
