@@ -1,14 +1,24 @@
-import { View, Text, SafeAreaView, Image, StyleSheet } from 'react-native'
+import {
+  Image,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
+
 import React from 'react'
 import { getColorByPokemonType } from '../../utils/getColorByPokemonType'
 
 export function Header({ name, order, type, sprite }) {
   const color = getColorByPokemonType(type)
   const BgStyles = [{ backgroundColor: color, ...styles.bg }]
+  const paddingHeader = Platform.OS === 'android' ? 50 : 0
+  const contentStyle = [{ ...styles.content, paddingTop: paddingHeader }]
   return (
     <>
       <View style={BgStyles} />
-      <SafeAreaView style={styles.content}>
+      <SafeAreaView style={contentStyle}>
         <View>
           <Text style={styles.name}> {name}</Text>
           <Text style={styles.order}>#{`${order}`}</Text>

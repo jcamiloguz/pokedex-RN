@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
-import { getPokemonDetailsById } from '../api/pokemon'
+
+import { Favorite } from '../components/Pokemon/Favorite'
 import { Header } from '../components/Pokemon/Header'
+import { ScrollView } from 'react-native'
 import { Stats } from '../components/Pokemon/Stats'
 import { Type } from '../components/Pokemon/Type'
+import { getPokemonDetailsById } from '../api/pokemon'
+import useAuth from '../hooks/useAuth'
+
 // import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export function Pokemon({ navigation, route: { params } }) {
   const [pokemon, setPokemon] = useState(null)
-
+  const { auth } = useAuth()
   useEffect(() => {
     navigation.setOptions({
-      headeRigth: () => null,
+      headerRight: () => (auth ? <Favorite id={pokemon?.id} /> : null),
     })
-  }, [navigation, params])
+  }, [navigation, params, pokemon])
 
   useEffect(() => {
     ;(async () => {

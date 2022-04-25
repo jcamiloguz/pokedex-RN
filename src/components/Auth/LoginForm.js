@@ -2,15 +2,15 @@ import * as Yup from 'yup'
 
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
+import { user, userDetails } from '../../utils/userDB'
 
-import UseAuth from '../../hooks/UseAuth'
+import useAuth from '../../hooks/useAuth'
 import { useFormik } from 'formik'
-import { user } from '../../utils/userDB'
 
 export default function LoginForm() {
   const [error, setError] = useState('')
-  UseAuth()
-
+  const { login } = useAuth()
+  console.log(useAuth())
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -19,6 +19,7 @@ export default function LoginForm() {
       const { username, password } = user
       if (username === el.username && password === el.password) {
         alert('Login success')
+        login(userDetails)
       } else {
         setError('Username or password is incorrect')
       }
